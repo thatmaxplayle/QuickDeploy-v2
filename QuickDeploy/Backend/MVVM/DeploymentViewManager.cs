@@ -54,7 +54,7 @@ namespace QuickDeploy.Backend.MVVM
                     }
 
                     // Iterate through the children of spDeployments, and update their data context.
-                    foreach (var item in deployments)
+                    foreach (var item in deployments.ToArray())
                     {
                         foreach (var v in mw.spDeployments.Children)
                         {
