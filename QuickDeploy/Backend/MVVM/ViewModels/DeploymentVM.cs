@@ -10,9 +10,9 @@ namespace QuickDeploy.Backend.MVVM.ViewModels
     internal class DeploymentVM : INotifyPropertyChanged
     {
 
-        private string _name;
+        private string? _name;
 
-        public string Name
+        public string? Name
         {
             get => _name;
             set
@@ -25,8 +25,8 @@ namespace QuickDeploy.Backend.MVVM.ViewModels
             }
         }
 
-        private string _description;
-        public string Description
+        private string? _description;
+        public string? Description
         {
             get => _description;
             set
@@ -53,8 +53,8 @@ namespace QuickDeploy.Backend.MVVM.ViewModels
             }
         }
 
-        private string _deploymentSummary;
-        public string DeploymentSummary
+        private string? _deploymentSummary;
+        public string? DeploymentSummary
         {
             get => _deploymentSummary;
             set
