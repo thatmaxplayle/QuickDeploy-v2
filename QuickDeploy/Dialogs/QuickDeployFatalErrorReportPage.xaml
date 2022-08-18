@@ -1,0 +1,74 @@
+﻿<Window x:Class="QuickDeploy.Dialogs.QuickDeployFatalErrorReportPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuickDeploy.Dialogs"
+        mc:Ignorable="d"
+         Title="QuickDeploy - Fatal Error" Height="600" Width="800"
+        Background="#36393f"
+        Foreground="White"
+        FontSize="17"
+        ResizeMode="NoResize"
+        Padding="10">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80px" />
+            <RowDefinition />
+            <RowDefinition Height="50px"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"
+              Background="#1e1e1e">
+
+            <Grid Margin="10">
+                <TextBlock Text="Fatal Error" FontSize="40" FontWeight="Bold" HorizontalAlignment="Left"/>
+
+                <TextBlock Text="QuickDeploy by Max Playle" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Grid>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Margin="10">
+
+            <TextBlock TextWrapping="WrapWithOverflow" Margin="0 0 0 10">
+                Unfortunately, QuickDeploy has run into an unexpected error. These things happen sometimes, but unfortunatley in this case you'll have to report this one to developer. 
+                Or heck, you can try and fix it yourself, given QuickDeploy is available on GitHub?                
+            </TextBlock>
+
+            <StackPanel Margin="0 10 0 0">
+
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                    <TextBlock FontWeight="Bold" Margin="10">Error Type:</TextBlock>
+                    <TextBlock TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Text="{Binding ExceptionTypeName}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                    <TextBlock FontWeight="Bold" Margin="10">Error Stack Trace:</TextBlock>
+                    <ScrollViewer>
+                        <TextBox Background="Transparent" BorderThickness="0" TextWrapping="WrapWithOverflow" Width="580" Height="200" Foreground="white" FontFamily="Consolas"  Margin="10"  Text="{Binding ExceptionStackTrace}"/>
+                    </ScrollViewer>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                    <TextBlock FontWeight="Bold" Margin="10">Error Message:</TextBlock>
+                    <TextBlock TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Text="{Binding ExceptionMessage}"/>
+                </StackPanel>
+                
+            </StackPanel>
+            
+        </StackPanel>
+
+        <Grid Grid.Row="2">
+
+            <StackPanel Orientation="Horizontal" Margin="5">
+
+                <Button x:Name="btnOpenGithubIssue" Click="btnOpenGithubIssue_Click" Content="Open GitHub Issue" VerticalAlignment="Center" HorizontalAlignment="Right" Width="222" Height="30" Margin="5 0 5 0" />
+                <Button x:Name="btnExit" Click="btnExit_Click" Content="Exit" VerticalAlignment="Center" HorizontalAlignment="Right" Width="111" Height="30" Margin="5 0 5 0" />
+
+            </StackPanel>
+            
+        </Grid>
+        
+    </Grid>
+</Window>

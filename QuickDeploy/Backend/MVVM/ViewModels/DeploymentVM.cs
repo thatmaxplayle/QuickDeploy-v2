@@ -2,7 +2,7 @@
 
 namespace QuickDeploy.Backend.MVVM.ViewModels
 {
-    internal class DeploymentVM : INotifyPropertyChanged
+    internal class DeploymentVM : VMBase
     {
 
         private string? _name;
@@ -62,13 +62,5 @@ namespace QuickDeploy.Backend.MVVM.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 using QuickDeploy.Backend;
@@ -33,7 +34,8 @@ namespace QuickDeploy.Controls
 
         private void btnRunDeployment_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Running deployment: " + Deployment.Name);
+            Console.WriteLine("Attempting to run deployment: " + this.Deployment?.Name ?? "**UNTITLED**");
+            this.Deployment?.Run();
         }
     }
 }
