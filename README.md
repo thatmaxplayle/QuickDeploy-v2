@@ -20,5 +20,5 @@ You will then see this deployment under "My Deployments" on the main window, all
   - [ ] Add the ability to manage (create & remove) deployments.
  
  - [ ] Application Improvements
-  - [ ] Add the ability to modify deployment, adding/removing files for example or renaming, without removing and re-creating the deployment.
+  - [ ] - [ ] Add the ability to modify deployment, adding/removing files for example or renaming, without removing and re-creating the deployment.
   - [ ] Add a seperate build counter, allowing users to track how many times a deployment has been run, allowing for accurate build numbers when publishing updates.
