@@ -55,6 +55,10 @@ namespace QuickDeploy.Backend
         /// </summary>
         public bool RecursivelyCopyDirectories { get; set; }
 
+        /// <summary>
+        /// Return this <see cref="Deployment"/> as a <see cref="DeploymentVM"/>, for use within a <see cref="Controls.VisualDeployment"/>'s <c>DataContext</c>.
+        /// </summary>
+        /// <returns>The converted <see cref="DeploymentVM"/> object.</returns>
         public DeploymentVM GetAsViewModel()
         {
             return new DeploymentVM()
