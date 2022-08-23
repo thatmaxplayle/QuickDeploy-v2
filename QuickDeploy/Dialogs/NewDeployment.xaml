@@ -1,0 +1,241 @@
+﻿<Window x:Class="QuickDeploy.Dialogs.NewDeployment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuickDeploy.Dialogs"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        mc:Ignorable="d"
+        Title="QuickDeploy - Create new deployment" Height="450" Width="900"
+        WindowStartupLocation="CenterOwner"
+        Background="#36393f"
+        Foreground="white">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50px"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".6*"/>
+            <ColumnDefinition Width=".4*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0"
+              Grid.ColumnSpan="2"
+              Background="#1a1a1a">
+
+            <TextBlock FontSize="20"
+                       Text="New Deployment"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Foreground="White"
+                       FontWeight="Bold"
+                       Margin="10 0 0 0"/>
+
+        </Grid>
+
+        <GroupBox Header="Configure" Grid.Row="1" Margin="5">
+            <Grid>
+
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Margin="10" Foreground="White" Padding="10">
+                        <StackPanel>
+
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                    Use this window to configure a new Deployment, which once created, will show up under "My Deployments".
+                            </TextBlock>
+
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                    Alternatively, if you want to manually modify your deployments, you can do so by editing the files created in the deployments folder of QuickDeploy's installation folder.
+                            </TextBlock>
+
+                            <Separator />
+
+                            <Grid Margin="0 10 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120px"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Deployment Name:"/>
+                                <TextBox x:Name="txtDeploymentName" Grid.Column="1" Background="#1a1a1a" TextChanged="txtDeploymentName_TextChanged" Foreground="white"/>
+
+                            </Grid>
+
+                            <Grid Margin="0 10 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120px"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="Description:"/>
+                                <TextBox x:Name="txtDeploymentDescription" Height="50" AcceptsReturn="True" Grid.Column="1" Background="#1a1a1a" TextChanged="txtDeploymentDescription_TextChanged"  Foreground="white"/>
+
+                            </Grid>
+
+
+
+                            <Grid Margin="0 10 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <GroupBox Header="Source Directory" Margin="2" Padding="10">
+
+                                    <Button VerticalAlignment="Center" Width="175" Height="30" Foreground="Black" HorizontalAlignment="Center" Content="Select Source Directory" x:Name="btnSelectSourceDirectory" Click="btnSelectSourceDirectory_Click"/>
+
+                                </GroupBox>
+
+                                <GroupBox Grid.Column="1" Header="Destination Directory" Margin="2" Padding="10">
+
+                                    <Button VerticalAlignment="Center" Width="175" Height="30" Foreground="Black" HorizontalAlignment="Center" Content="Select Destination Directory" x:Name="btnSelectDestinationDirectory" Click="btnSelectDestinationDirectory_Click"/>
+
+
+                                </GroupBox>
+
+                            </Grid>
+
+                            <Grid Margin="0 10 0 0" Height="180">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <GroupBox Header="Files" Margin="2" Padding="10">
+
+                                    <StackPanel>
+                                        <ListBox Height="100" Margin="0 0 0 10" x:Name="lbDeploymentFiles" SelectionMode="Single" SelectionChanged="lbDeploymentFiles_SelectionChanged" Background="#1e1e1e" Foreground="white">
+
+                                        </ListBox>
+                                        
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Button x:Name="btnAddFile" Click="btnAddFile_Click" Content="Add File" />
+                                            <Button x:Name="btnRemoveFile" Grid.Column="1" Click="btnRemoveFile_Click" Content="Remove File"/>
+                                        </Grid>
+                                    </StackPanel>
+                                  
+                                    
+                                </GroupBox>
+
+                                <GroupBox Grid.Column="1" Header="Folders" Margin="2" Padding="10">
+
+                                    <StackPanel>
+                                        <ListBox Height="100" Margin="0 0 0 10" x:Name="lbDeploymentFolders" SelectionMode="Single" SelectionChanged="lbDeploymentFolders_SelectionChanged" Background="#1e1e1e" Foreground="white">
+                                            
+                                        </ListBox>
+
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Button x:Name="btnAddFolder" Click="btnAddFolder_Click" Content="Add Folder"/>
+                                            <Button x:Name="btnRemoveFolder" Grid.Column="1" Click="btnRemoveFolder_Click" Content="Remove Folder"/>
+                                        </Grid>
+                                    </StackPanel>
+                                    
+                                </GroupBox>
+
+                            </Grid>
+
+                            <GroupBox Header="Ensure Files" Margin="2" Padding="10">
+                                <StackPanel>
+                                    <TextBlock TextWrapping="WrapWithOverflow">
+                                        Ensure Files are absolute file paths which are checked for existance before the deployment can run. For example, if you have more than one installation
+                                        of a program or application, but you only want this deployment to run if a particular one is active, you can create an Ensure File entry for a file which
+                                        is only present when the installation you want is active.
+                                    </TextBlock>
+                                    <TextBlock TextWrapping="WrapWithOverflow" Foreground="Yellow" Margin="0 0 0 5">
+                                        Ensure Files are fully qualified, absolute, file paths. They do not have to be in either the Source or Destination directories.
+                                    </TextBlock>
+
+                                    <ListBox x:Name="lbEnsureFiles" Height="100" SelectionChanged="lbEnsureFiles_SelectionChanged" Background="#1e1e1e" Foreground="white">
+                                        
+                                    </ListBox>
+                                    
+                                    <!-- Grid for Ensure File Controls -->
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Button Grid.Column="0" Content="Add Ensure File" x:Name="btnAddEnsureFile" Click="btnAddEnsureFile_Click"/>
+                                        <Button Grid.Column="1" Content="Remove Ensure File" x:Name="btnRemoveEnsureFile" Click="btnRemoveEnsureFile_Click"/>
+                                    </Grid>
+
+                                </StackPanel>
+                            </GroupBox>
+
+                            <GroupBox Header="Finetuning" Margin="2" Padding="5" Foreground="white">
+
+                                <StackPanel>
+
+                                    <TextBlock Foreground="Aqua" TextWrapping="Wrap" Margin="0 0 0 10">You can right-click on any of these items for an explanation.</TextBlock>
+
+                                    <CheckBox x:Name="chkRecursiveDirectoryCopy" Checked="chkRecursiveDirectoryCopy_Checked" Unchecked="chkRecursiveDirectoryCopy_Unchecked" MouseRightButtonUp="chkRecursiveDirectoryCopy_MouseRightButtonUp" Foreground="white" Content="Recursive Directory Copying"/>
+
+                                    <CheckBox x:Name="chkUseEnsureFiles" Checked="chkUseEnsureFiles_Checked" Unchecked="chkUseEnsureFiles_Unchecked" MouseRightButtonUp="chkUseEnsureFiles_MouseRightButtonUp" Foreground="white" Content="Use Ensure Files"/>
+
+                                </StackPanel>
+
+
+                            </GroupBox>
+
+                            <GroupBox Header="Build Counting" Margin="2" Padding="5" Foreground="WHite">
+                                <StackPanel>
+                                    <TextBlock TextWrapping="WrapWithOverflow">
+                                        Optionally, you can also specify a Build Counting ID, which - once a build counter with this ID is created - will allow you to keep track of the number of times a given deployment has been run. This should help you with providing accurate build counts for 
+                                        your projects to consumers. This isn't strictly necessary, however may be useful - depending on what you are using QuickDeploy for.
+                                    </TextBlock>
+                                    <TextBlock TextWrapping="WrapWithOverflow" Foreground="Red" FontWeight="Bold">
+                                        Build Counting functionality is not yet implemented - however you can specify a Build Counter ID so your deployments will automatically start using this functionality when it is introduced.
+                                    </TextBlock>
+
+                                    <Grid Margin="0 10 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="120px"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Text="Build Counter ID:"/>
+                                        <TextBox Grid.Column="1" Background="#1e1e1e" Foreground="White" x:Name="txtBuildCounterId" TextChanged="txtBuildCounterId_TextChanged"/>
+                                    </Grid>
+
+                                </StackPanel>
+                            </GroupBox>
+
+                            <Button HorizontalAlignment="Right" x:Name="btnSubmit" Content="Submit" Click="btnSubmit_Click" Width="100" Height="30" Margin="10"/>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+
+        </GroupBox>
+
+        <GroupBox Grid.Column="2" Grid.Row="1" Margin="5" Header="JSON Preview" >
+
+            <avalonEdit:TextEditor Background="LightGray"
+                    IsReadOnly="True"
+                    x:Name="txtJsonPreview"
+                    FontFamily="consolas"
+                    VerticalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Disabled"
+                    WordWrap="True"
+                    SyntaxHighlighting="Json"
+                    />
+
+        </GroupBox>
+
+    </Grid>
+</Window>
