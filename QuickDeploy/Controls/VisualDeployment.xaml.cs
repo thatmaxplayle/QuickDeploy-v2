@@ -35,7 +35,7 @@ namespace QuickDeploy.Controls
         private void btnRunDeployment_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Attempting to run deployment: " + this.Deployment?.Name ?? "**UNTITLED**");
-            this.Deployment?.Run();
+            this.Deployment?.Run(false);
         }
     }
 }
