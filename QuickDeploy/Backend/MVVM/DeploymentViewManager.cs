@@ -39,46 +39,62 @@ namespace QuickDeploy.Backend.MVVM
                 Thread.Sleep(5000);
                 Console.WriteLine("Running " + nameof(DeploymentViewManager));
 
-                Application.Current.Dispatcher.Invoke(() =>
+                try
                 {
-                    // If main window is of invalid type, don't bother.
-                    if (Application.Current.MainWindow is not MainWindow mw)
-                        throw new InvalidOperationException("Cannot update deployment information for a MainWindow which is not of the correct type.");
 
-                    Console.WriteLine("slDeployment Children: {0} | MVVM Registrations: {1}", mw.spDeployments.Children.Count, this.deployments.Count);
-
-                    if (!this.deployments.Any())
+                    Application.Current?.Dispatcher?.Invoke(() =>
                     {
-                        Console.WriteLine("Resetting call to Tick() because there are no deployments registered with {0}. Deployments must be registered with {0} to be updated.", nameof(DeploymentViewManager));
-                        return;
-                    }
-
-                    // Iterate through the children of spDeployments, and update their data context.
-                    foreach (var item in deployments.ToArray())
-                    {
-                        foreach (var v in mw.spDeployments.Children)
+                        try
                         {
-                            if (v is not VisualDeployment vd)
+                            // If main window is of invalid type, don't bother.
+                            if (Application.Current.MainWindow is not MainWindow mw)
+                                throw new InvalidOperationException("Cannot update deployment information for a MainWindow which is not of the correct type.");
+
+                            Console.WriteLine("slDeployment Children: {0} | MVVM Registrations: {1}", mw.spDeployments.Children.Count, this.deployments.Count);
+
+                            if (!this.deployments.Any())
                             {
-                                Console.WriteLine("Child is not {0}. Skipping.", nameof(VisualDeployment));
-                                continue;
+                                Console.WriteLine("Resetting call to Tick() because there are no deployments registered with {0}. Deployments must be registered with {0} to be updated.", nameof(DeploymentViewManager));
+                                return;
                             }
 
-                            // Check if we've registered this deployment in this manager.
-                            var fod = deployments.FirstOrDefault(x => x.deployment == vd.Deployment);
-
-                            // Deployment isn't registered, continue to the next one.
-                            if (fod == null)
+                            // Iterate through the children of spDeployments, and update their data context.
+                            foreach (var item in deployments.ToArray())
                             {
-                                Console.WriteLine("Deployment is not registered within {1}, skipping...", nameof(DeploymentViewManager));
-                                continue;
-                            }
+                                foreach (var v in mw.spDeployments.Children)
+                                {
+                                    if (v is not VisualDeployment vd)
+                                    {
+                                        Console.WriteLine("Child is not {0}. Skipping.", nameof(VisualDeployment));
+                                        continue;
+                                    }
 
-                            fod.visual.DataContext = fod.deployment.GetAsViewModel();
-                            Console.WriteLine("Updated data context for deployment: {0}", fod.deployment.Name);
+                                    // Check if we've registered this deployment in this manager.
+                                    var fod = deployments.FirstOrDefault(x => x.deployment == vd.Deployment);
+
+                                    // Deployment isn't registered, continue to the next one.
+                                    if (fod == null)
+                                    {
+                                        Console.WriteLine("Deployment is not registered within {1}, skipping...", nameof(DeploymentViewManager));
+                                        continue;
+                                    }
+
+                                    fod.visual.DataContext = fod.deployment.GetAsViewModel();
+                                    Console.WriteLine("Updated data context for deployment: {0}", fod.deployment.Name);
+                                }
+                            }
                         }
-                    }
-                });
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("[ERROR] {0} failed to run. Could not dispatch: {1}", nameof(DeploymentViewManager), e.ToString());
+                        }
+                    });
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("[ERROR] Failed to run {0}: Dispatcher was unavailable or failed to enquue.", nameof(DeploymentViewManager));
+                }
             }
         }
 
