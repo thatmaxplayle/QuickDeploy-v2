@@ -8,6 +8,7 @@
         Title="QuickDeploy by Max Playle" Height="500" Width="800"
         Background="#36393f"
         Foreground="White"
+        WindowStartupLocation="CenterScreen"
         FontSize="13">
     <Grid Margin="10">
 
@@ -22,7 +23,7 @@
             </StackPanel>
             <Grid>
                 <StackPanel Orientation="Horizontal">
-                    <Button Padding="5" Content="New Deployment" x:Name="btnNewDeployment" Margin="5"/>
+                    <Button Padding="5" Content="New Deployment" Click="btnNewDeployment_Click" x:Name="btnNewDeployment" Margin="5"/>
                     <Button Padding="5" Content="Options" x:Name="btnOtions" Margin="5"/>
                 </StackPanel>
             </Grid>
