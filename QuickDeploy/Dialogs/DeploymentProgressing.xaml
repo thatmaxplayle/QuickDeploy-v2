@@ -1,0 +1,28 @@
+﻿<Window x:Class="QuickDeploy.Dialogs.DeploymentProgressing"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:ClassModifier="internal"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuickDeploy.Dialogs"
+        mc:Ignorable="d"
+        Title="Running Deployment {DEPL_TITLE}" MinHeight="300" MinWidth="500" Height="300" Width="500"
+        Background="#36393f">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75px"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"
+            Background="#1a1a1a">
+            <TextBlock x:Name="txtTitle" x:FieldModifier="private" Text="{Binding WindowTitle, Mode=OneWay}" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" Margin="10 0 0 0" FontSize="30"/>
+        </Grid>
+
+        <TextBlock Grid.Row="1" VerticalAlignment="Center" Foreground="White" TextWrapping="WrapWithOverflow" Margin="10" HorizontalAlignment="Center" FontSize="17" Text="{Binding CurrentStatus, Mode=OneWay}"></TextBlock>
+
+        <Button Grid.Row="1" VerticalAlignment="Bottom" x:Name="btnDismiss" Click="btnDismiss_Click" Margin="0 0 10 10" Width="111" Height="30" HorizontalAlignment="Right" Content="OK" IsEnabled="{Binding CloseButtonAvailable, Mode=OneWay}"></Button>
+        
+    </Grid>
+</Window>
